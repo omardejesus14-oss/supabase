@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Custom from "./custom";
 
-export default function LoginForm(secure) {
+export default function LoginForm() {
 
     const router = useRouter();
 
@@ -44,19 +44,14 @@ export default function LoginForm(secure) {
         > 
             <h2 className="text-xl">Iniciar sesión</h2>
 
-            <input className="text-center border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <input className=" border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="text" 
                 placeholder="Ingresa tu email" 
                 value={user.email}
                 onChange={(e) => setUser({...user, email: e.target.value})}
             />
-            {/* <input className="text-center border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                type="password" 
-                placeholder="Ingresa tu contraseña" 
-                value={user.password}
-                onChange={(e) => setUser({...user, password: e.target.value})}
-            /> */}
-            <Custom placeholder={"ingresa tu contraceña"} onChange={(yuca)=>setUser({...user, password:yuca})}
+           
+            <Custom placeholder={"ingresa tu contraceña"} onchange={(yuca)=>setUser({...user, password:yuca})}
             secure
             />
                 

@@ -10,6 +10,7 @@ export default function RegisterForm() {
     const [user, setUser] = useState({
         email: "",
         password: "",
+        confirmarpasword:""
     });
 
     const [loading, setLoading] = useState(false);
@@ -38,6 +39,10 @@ export default function RegisterForm() {
        <div className="w-full h-screen flex justify-center items-center bg-gray-100 "> 
         <form onSubmit={(e) => {
             e.preventDefault();
+            if (user.password!==user.confirmarpasword){
+                alert("las contraceñas no coinciden")
+                return
+            }
             registrar();
         }}
         className="flex flex-col justify-center items-center gap-4 w-[300px] h-[350px] bg-gray-500 rounded-lg "
@@ -56,6 +61,12 @@ export default function RegisterForm() {
                 placeholder="Ingresa tu contraseña" 
                 value={user.password}
                 onChange={(e) => setUser({...user, password: e.target.value})}
+            />
+            <input className="w-[80%] text-center border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                type="password" 
+                placeholder="Ingresa tu contraseña" 
+                value={user.password}
+                onChange={(e) => setUser({...user, confirmarpasword: e.target.value})}
             />
             <button  type="submit"
           disabled={loading} className="bg-blue-300 hover:bg-blue-100 text-black| font-bold py-2 px-4 rounded">Registrar</button>
