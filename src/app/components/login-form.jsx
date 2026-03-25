@@ -34,17 +34,17 @@ export default function LoginForm() {
 
     return (
        
-          <div className="w-full h-screen flex justify-center items-center bg-gray-200">
+          <div className="w-[100%] h-screen flex justify-center items-center bg-gray-200">
              <form onSubmit={(e) => {
             e.preventDefault();
             login();
             
         }}
-        className="flex flex-col justify-center items-center gap-4 w-[300px] h-[350px] bg-gray-500 rounded-lg text-center"
+        className="flex flex-col justify-center items-center gap-4 w-[600px] h-[350px] bg-gray-500 rounded-lg text-center"
         > 
             <h2 className="text-xl">Iniciar sesión</h2>
 
-            <input className=" border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <input className="w-[80%] border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="text" 
                 placeholder="Ingresa tu email" 
                 value={user.email}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { createClient } from "../utils/supabase/client";
 import { useRouter } from "next/navigation";
+import Custom from "./custom";
 
 export default function RegisterForm() {
 
@@ -45,29 +46,30 @@ export default function RegisterForm() {
             }
             registrar();
         }}
-        className="flex flex-col justify-center items-center gap-4 w-[300px] h-[350px] bg-gray-500 rounded-lg "
+        className="flex flex-col justify-center items-center gap-4 w-[600px] h-[350px] bg-gray-500 rounded-lg "
         >   
             <h2 className="text-xl">Registrar</h2>
 
-            <input className="w-[80%] text-center border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <input className="w-[80%]  border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="text" 
                 placeholder="Ingresa tu email" 
                 value={user.email}
                 onChange={(e) => setUser({...user, email: e.target.value})}
             />
             
-            <input className="w-[80%] text-center border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                type="password" 
-                placeholder="Ingresa tu contraseña" 
-                value={user.password}
-                onChange={(e) => setUser({...user, password: e.target.value})}
-            />
-            <input className="w-[80%] text-center border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                type="password" 
-                placeholder="Ingresa tu contraseña" 
-                value={user.password}
-                onChange={(e) => setUser({...user, confirmarpasword: e.target.value})}
-            />
+           
+            <Custom placeholder={"ingresa tu contraceña"}
+             value={user.password}
+             onchange={(yuca) => setUser({...user, password:yuca})}
+                        secure
+                        />
+
+
+             <Custom placeholder={"ingresa tu contraceña"} 
+                value={user.confirmarpasword}
+                onchange={(yuca) => setUser({...user, confirmarpasword:yuca})}
+                        secure
+                        /> 
             <button  type="submit"
           disabled={loading} className="bg-blue-300 hover:bg-blue-100 text-black| font-bold py-2 px-4 rounded">Registrar</button>
 
