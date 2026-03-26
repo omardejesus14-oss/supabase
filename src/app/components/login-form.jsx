@@ -14,6 +14,7 @@ export default function LoginForm() {
         email: "",
         password: "",
     });
+    const [errors, setErrors]=useState("")
 
     const login = async () => {
         try {
@@ -22,6 +23,16 @@ export default function LoginForm() {
                  email: user.email.trim(),
                 password: user.password,
             });
+            if (error) {
+           
+            setErrors({
+                email: "Correo o contraseña incorrectos",
+                password: "Correo o contraseña incorrectos",
+                
+            });
+            return;
+        }
+
             if (error) throw error;
             if (data) {
                 alert ("iniciastes sesión correctamente");
@@ -40,7 +51,7 @@ export default function LoginForm() {
             login();
             
         }}
-        className="flex flex-col justify-center items-center gap-4 w-[600px] h-[350px] bg-gray-500 rounded-lg text-center"
+        className="flex flex-col justify-center items-center gap-4 w-[60%] h-[70%] bg-gray-500 rounded-lg text-center"
         > 
             <h2 className="text-xl">Iniciar sesión</h2>
 
@@ -50,10 +61,12 @@ export default function LoginForm() {
                 value={user.email}
                 onChange={(e) => setUser({...user, email: e.target.value})}
             />
+             
            
             <Custom placeholder={"ingresa tu contraceña"} onchange={(yuca)=>setUser({...user, password:yuca})}
             secure
             />
+             {errors.password && <span className="text-red-500">{errors.password}</span>}
                 
             <button className="bg-blue-300 hover:bg-blue-100 text-black| font-bold py-2 px-4 rounded">iniciar sesión</button>
             <h3>si no tienes una cuenta, <Link href="/register" className="text-blue-500 hover:underline">regístrate</Link></h3>

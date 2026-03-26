@@ -9,13 +9,33 @@ export default function TaskForm() {
     title: "",
     description: "",
   });
+  const [errors , setError]=useState({title:"", description:""})
 
   
-  const handlesubmit = async () => {
-    if (task.title=== "" || task.description=== "") {
-        alert("por favor completa todos los campos");
-        return;
-        }
+  
+  const handlesubmit = async (e) => {
+      
+
+    
+    let currentErrors = { title: "", description: "" };
+    let hasError = false;
+
+    if(task.title.trim()===""){
+      currentErrors.title="* campo requreido"
+     hasError=true
+    }
+   
+    if(task.description.trim()===""){
+      currentErrors.description="* campo requreido"
+     hasError=true
+    }
+    setError(currentErrors);
+
+    if (hasError){
+      alert("porfavor completa los campos")
+      return;
+    } 
+
     
     try {
 
@@ -48,14 +68,25 @@ export default function TaskForm() {
               <form onSubmit={(e) => {
             e.preventDefault();
             handlesubmit();
-        }}        className="flex flex-col gap-4 w-[300px] justify-center items-center h-[350px] bg-gray-400 rounded-lg  text-center"
+        }}        className="flex flex-col gap-4 w-[600px] justify-center items-center h-[350px] bg-gray-400 rounded-lg  text-center"
         >   <h2 className="text-xl">crear tarea</h2>
             <input className="w-[80%]  bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="titulo de la  tarea" onChange={(e)=>setTask({...task, title: e.target.value})} />
-            
-            <span className="text-red-500 hidden">* campo requerido</span>
-            <input className="w-[80%]  bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="descripcion de la tarea" onChange={(e)=>setTask({...task, description: e.target.value})} />
 
-            <span className="text-red-500 hidden">* campo requerido</span>
+            {errors.title && <span  className="text-red-500 ">
+            {errors.title}
+            </span>
+
+            }
+            
+
+
+            <input className="w-[80%]  bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="descripcion de la tarea" onChange={(e)=>setTask({...task, description: e.target.value})} />
+            
+
+            {errors.description && <span  className="text-red-500 ">
+            {errors.description}
+            </span>
+              }
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  >
                 registrar tarea
             </button>
