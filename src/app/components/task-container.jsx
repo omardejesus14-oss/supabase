@@ -28,7 +28,7 @@ export default function TaskContainer() {
     )
 
     return (
-        <div>
+        <div className="flex bg-gray-100 gap-3 flex-wrap justify-center items-center p-4">
             {
                 tasks.length > 0 
                 ? (

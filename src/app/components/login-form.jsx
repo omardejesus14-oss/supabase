@@ -51,11 +51,11 @@ export default function LoginForm() {
             login();
             
         }}
-        className="flex flex-col justify-center items-center gap-4 w-[60%] h-[70%] bg-gray-500 rounded-lg text-center"
+        className="flex flex-col justify-center items-center gap-4 w-[60%] h-[auto] py-4 px-6  bg-gray-500 rounded-lg text-center"
         > 
             <h2 className="text-xl">Iniciar sesión</h2>
 
-            <input className="w-[80%] border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <input className="w-[86%] border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="text" 
                 placeholder="Ingresa tu email" 
                 value={user.email}
