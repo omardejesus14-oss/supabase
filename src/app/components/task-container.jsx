@@ -1,9 +1,11 @@
 "use client"
 
 import { createClient } from "../utils/supabase/client"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import TaskCard from "./task.Card"
 
 export default function TaskContainer() {
+    const [tasks, setTasks] = useState([]);
 
     useEffect(
         () => {
@@ -16,6 +18,9 @@ export default function TaskContainer() {
                 const { data } = await supabase.from('tasks')
                     .select('*')
                     .eq('user_id', userData.user.id);
+
+                console.log(data);
+                setTasks(data);
             }
             fetchTasks()
 
@@ -23,8 +28,18 @@ export default function TaskContainer() {
     )
 
     return (
-        <div className="w-full h-screen flex justify-center items-center bg-gray-200">
-            <h1>task container</h1>
+        <div>
+            {
+                tasks.length > 0 
+                ? (
+                    tasks.map(
+                        task=>(
+                            <TaskCard key={task.id} task={task} />
+                        )
+                    )
+                )
+                : <h2>No hay tareas disponibles.</h2>
+            }
         </div>
     )
 }

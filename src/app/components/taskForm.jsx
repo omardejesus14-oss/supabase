@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { createClient } from "../utils/supabase/client";
 
 export default function TaskForm() {
@@ -8,8 +8,10 @@ export default function TaskForm() {
   const [task, setTask] = useState({
     title: "",
     description: "",
+    image:null
   });
   const [errors , setError]=useState({title:"", description:""})
+  const inputFileRef=useRef(null)
 
   
   
@@ -36,18 +38,42 @@ export default function TaskForm() {
       return;
     } 
 
-    
+     
+
     try {
+
+    
 
       const supabase = createClient();
 
-      const { data: userData } = await supabase.auth.getUser();
+      const { data:{user}  } = await supabase.auth.getUser();
 
+       if (task.image.type!=="image/png" && task.image.type!=="image/jpeg"){
+        alert("solo se pertmiten imagenes")
+        return
+       }
+       if(!user){
+        alert("no hay un usario")
+        return
+
+       }
+
+      const filePath =`${user.id}/${task.image.name}`;
+      const {data:dataImage, error:errorImage}= await supabase.storage.from("archivos").upload(filePath,task.image, {cacheControl:'3600'})
+      //  console.log('img data', dataImage);
+      
+           
+            if(errorImage){
+                alert("Error al subir la imagen")
+                return
+            }
+
+      const { data: userData } = await supabase.auth.getUser();
       const { data, error } = await supabase.from("tasks").insert({
         title: task.title,
         descriptions: task.description, // tu tabla tiene descriptions
         user_id: userData.user.id,
-        
+        image:dataImage.path
       });
         
       
@@ -68,7 +94,7 @@ export default function TaskForm() {
               <form onSubmit={(e) => {
             e.preventDefault();
             handlesubmit();
-        }}        className="flex flex-col gap-4 w-[600px] justify-center items-center h-[350px] bg-gray-400 rounded-lg  text-center"
+        }}        className="flex flex-col gap-4 w-[auto] justify-center items-center h-[auto] bg-gray-400 rounded-lg  text-center"
         >   <h2 className="text-xl">crear tarea</h2>
             <input className="w-[80%]  bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="titulo de la  tarea" onChange={(e)=>setTask({...task, title: e.target.value})} />
 
@@ -86,6 +112,24 @@ export default function TaskForm() {
             {errors.description && <span  className="text-red-500 ">
             {errors.description}
             </span>
+              }
+              <input ref={inputFileRef} className="w-[80%]  bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" type="file" onChange={(e) => setTask({ ...task, image: e.target.files[0] })} name="image" />
+              {
+                task.image 
+                && 
+                <img onClick={()=>{
+                  inputFileRef.current.click()
+                }} src={URL.createObjectURL(task.image)} className="w-[300px] cursor-pointer hover:scale-105" alt="" />
+              }
+
+              {
+                !task.image
+                  &&
+                  <div onClick={()=>{
+                  inputFileRef.current.click()
+                  }}>
+                  selecciona tu imagen
+                  </div>
               }
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  >
                 registrar tarea
