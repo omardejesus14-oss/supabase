@@ -7,7 +7,7 @@ import Custom from "./custom";
 
 export default function RegisterForm() {
 
-
+    
     const [errors, setErrors]=useState({email:"", password:"", confirmarpasword:""})
     const router = useRouter();
     const [user, setUser] = useState({
