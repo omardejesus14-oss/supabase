@@ -76,7 +76,7 @@ export default function RegisterForm() {
      }
     
     return (
-       <div className="w-full h-screen flex justify-center items-center bg-gray-100 "> 
+       <div className="w-100% h-screen flex justify-center items-center bg-gray-100 "> 
         <form onSubmit={(e) => {
             e.preventDefault();
             // if (user.password!==user.confirmarpasword){

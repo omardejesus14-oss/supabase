@@ -21,7 +21,7 @@ export default function Custom({secure, onchange, placeholder, value} ) {
     
 
     return (
-        <div className="w-[600px] flex text-center border border-gray-600 rounded-md py-2 px-2 bg-white focus-within:ring-2 focus-within:ring-blue-500">
+        <div className="w-[85%] flex text-center border border-gray-600 rounded-md py-2 px-4 bg-white focus-within:ring-2 focus-within:ring-blue-500">
             <input  className=" bg-transparent border-none outline-none focus:ring-0 w-[100%] " placeholder={placeholder} 
             value={value}
             
