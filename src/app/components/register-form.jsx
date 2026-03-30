@@ -85,11 +85,11 @@ export default function RegisterForm() {
             // }
             registrar();
         }}
-        className="flex flex-col justify-center items-center gap-4 w-[60%] h-[auto] py-4 px-6  bg-gray-500 rounded-lg "
+        className="flex flex-col justify-center items-center gap-4 w-[61%] h-[auto] py-4 px-6  bg-gray-500 rounded-lg "
         >   
             <h2 className="text-xl">Registrar</h2>
 
-            <input className="w-[86%]  border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <input className="w-[85%]  border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="text" 
                 placeholder="Ingresa tu email" 
                 value={user.email}
