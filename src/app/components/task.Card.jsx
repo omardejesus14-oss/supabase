@@ -58,12 +58,12 @@ export default function TaskCard({ task, onUpdate }) {
             }
         }
 
-        // --- CORRECCIÓN AQUÍ: Usamos select() para confirmar el cambio ---
+        // AQUÍ Usamos select() para confirmar el cambio 
         const { data: updatedData, error: dbError } = await supabase
             .from("tasks")
             .update({
                 title: editTask.title,
-                descriptions: editTask.descriptions, // Asegúrate que en Supabase se llame así (con S)
+                descriptions: editTask.descriptions, 
                 image: filePath
             })
             .eq("id", task.id)

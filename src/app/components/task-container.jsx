@@ -6,10 +6,7 @@ import TaskCard from "./task.Card"
 
 export default function TaskContainer() {
     const [tasks, setTasks] = useState([]);
-
-    useEffect(
-        () => {
-            const fetchTasks = async () => {
+      const fetchTasks = async () => {
                 const supabase = createClient();
                 const { data: userData } = await supabase.auth.getUser();
 
@@ -22,8 +19,10 @@ export default function TaskContainer() {
                 console.log(data);
                 setTasks(data);
             }
-            fetchTasks()
-
+           
+    useEffect(
+        () => {
+             fetchTasks()
         }, []
     )
 
@@ -34,7 +33,9 @@ export default function TaskContainer() {
                 ? (
                     tasks.map(
                         task=>(
-                            <TaskCard key={task.id} task={task} />
+                            <TaskCard key={task.id} 
+                            task={task}
+                             onUpdate={fetchTasks} />
                         )
                     )
                 )
