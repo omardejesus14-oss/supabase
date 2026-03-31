@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef,  } from "react";
 import { createClient } from "../utils/supabase/client";
 
 export default function TaskForm() {
@@ -12,6 +12,7 @@ export default function TaskForm() {
   });
   const [errors , setError]=useState({title:"", description:""})
   const inputFileRef=useRef(null)
+ 
 
   
   
@@ -84,58 +85,77 @@ export default function TaskForm() {
     } catch (error) {
       console.log(error);
     }
+    setTask({
+      title: "",
+      description: "",
+      image: null
+    });
+  
   };
 
  
     return (
-        <div className="flex flex-col gap-2 w-full justify-center items-center h-screen bg-gray-100 ">
-          
+       <div className="flex flex-col gap-4 w-full justify-center items-center py-10 bg-slate-50 font-sans">
+    
+    <form onSubmit={(e) => {
+        e.preventDefault();
+        handlesubmit();
+    }}        
+    className="flex flex-col gap-4 justify-center items-center w-[60%] h-[auto] bg-white border border-slate-200 rounded-lg text-center py-6 px-6 shadow-sm"
+    >  
+        <h2 className="text-xl font-bold text-slate-800">crear tarea</h2>
 
-              <form onSubmit={(e) => {
-            e.preventDefault();
-            handlesubmit();
-        }}        className="flex flex-col gap-4  justify-center items-center  w-[60%] h-[auto] bg-gray-400 rounded-lg  text-center py-4 px-6 ">  
-          <h2 className="text-xl">crear tarea</h2>
-            <input className="w-[80%]  bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="titulo de la  tarea" onChange={(e)=>setTask({...task, title: e.target.value})} />
+        <input 
+            className="w-[80%] bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" 
+            type="text" 
+            placeholder="titulo de la tarea" 
+            onChange={(e) => setTask({ ...task, title: e.target.value })} 
+        />
+        {errors.title && <span className="text-red-500">{errors.title}</span>}
 
-            {errors.title && <span  className="text-red-500 ">
-            {errors.title}
-            </span>
+        <input 
+            className="w-[80%] bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" 
+            type="text" 
+            placeholder="descripcion de la tarea" 
+            onChange={(e) => setTask({ ...task, description: e.target.value })} 
+        />
+        {errors.description && <span className="text-red-500">{errors.description}</span>}
 
-            }
-            
+        <input 
+            ref={inputFileRef} 
+            className="w-[80%] bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" 
+            type="file" 
+            onChange={(e) => setTask({ ...task, image: e.target.files[0] })} 
+            name="image" 
+        />
 
+        {task.image && (
+            <img 
+                onClick={() => { inputFileRef.current.click() }} 
+                src={URL.createObjectURL(task.image)} 
+                className="w-[300px] cursor-pointer hover:scale-105 transition-transform" 
+                alt="" 
+            />
+        )}
 
-            <input className="w-[80%]  bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="descripcion de la tarea" onChange={(e)=>setTask({...task, description: e.target.value})} />
-            
+        {!task.image && (
+            <div 
+                className="cursor-pointer text-blue-600 hover:underline"
+                onClick={() => { inputFileRef.current.click() }}
+            >
+                selecciona tu imagen
+            </div>
+        )}
 
-            {errors.description && <span  className="text-red-500 ">
-            {errors.description}
-            </span>
-              }
-              <input ref={inputFileRef} className="w-[80%]  bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" type="file" onChange={(e) => setTask({ ...task, image: e.target.files[0] })} name="image" />
-              {
-                task.image 
-                && 
-                <img onClick={()=>{
-                  inputFileRef.current.click()
-                }} src={URL.createObjectURL(task.image)} className="w-[300px] cursor-pointer hover:scale-105" alt="" />
-              }
-
-              {
-                !task.image
-                  &&
-                  <div onClick={()=>{
-                  inputFileRef.current.click()
-                  }}>
-                  selecciona tu imagen
-                  </div>
-              }
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  >
-                registrar tarea
-            </button>
+        <button 
+            type="submit" 
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
+        >
+            registrar tarea
+        </button>
         </form>
-        </div>
-      
+
+    
+      </div>
     )
 }

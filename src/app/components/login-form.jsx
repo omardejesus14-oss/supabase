@@ -45,34 +45,49 @@ export default function LoginForm() {
 
     return (
        
-          <div className="w-[100%] h-screen flex justify-center items-center bg-gray-200">
-             <form onSubmit={(e) => {
-            e.preventDefault();
-            login();
-            
-        }}
-        className="flex flex-col justify-center items-center gap-4 w-[61%] h-[auto] py-4 px-6  bg-gray-500 rounded-lg text-center"
-        > 
-            <h2 className="text-xl">Iniciar sesión</h2>
+          <div className="min-h-screen flex justify-center items-center bg-slate-50 font-sans"> 
+    <form onSubmit={(e) => {
+        e.preventDefault();
+        login();
+    }}
+    className="flex flex-col justify-center items-center gap-6 w-full max-w-md h-auto py-10 px-8 bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/50"
+    > 
+        <div className="text-center space-y-2 mb-2">
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Bienvenido</h2>
+            <p className="text-slate-500 text-sm">Ingresa tus credenciales para continuar</p>
+        </div>
 
-            <input className="w-[85%] border border-gray-600 rounded-md py-2 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <div className="w-full flex flex-col gap-1 items-center">
+            <input className="w-[90%] border border-slate-200 rounded-xl py-3 px-4 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 type="text" 
                 placeholder="Ingresa tu email" 
                 value={user.email}
                 onChange={(e) => setUser({...user, email: e.target.value})}
             />
-             
-           
-            <Custom placeholder={"ingresa tu contraceña"} onchange={(yuca)=>setUser({...user, password:yuca})}
-            secure
+            {/* Si tienes errores de email, puedes agregarlos aquí igual que en el registro */}
+        </div>
+        
+        <div className="w-full flex flex-col gap-1 items-center">
+            <Custom 
+                placeholder={"Ingresa tu contraseña"} 
+                onchange={(yuca) => setUser({...user, password:yuca})}
+                secure
             />
-             {errors.password && <span className="text-red-500">{errors.password}</span>}
-                
-            <button className="bg-blue-300 hover:bg-blue-100 text-black| font-bold py-2 px-4 rounded">iniciar sesión</button>
-            <h3>si no tienes una cuenta, <Link href="/register" className="text-blue-500 hover:underline">regístrate</Link></h3>
-        </form>
+            {errors.password && <span className="text-red-500 text-xs mt-1 w-[90%] text-left">{errors.password}</span>}
+        </div>
+            
+        <button 
+            type="submit"
+            className="w-[90%] bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition-all transform active:scale-95 shadow-lg shadow-indigo-200"
+        >
+            Iniciar sesión
+        </button>
 
-          </div>
+        <div className="mt-2 text-sm text-slate-600 text-center">
+            ¿No tienes una cuenta? <Link href="/register" className="text-indigo-600 font-semibold hover:underline">Regístrate</Link>
+        </div>
+    </form>
+</div>
         
     )
 }
